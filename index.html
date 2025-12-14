@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <!-- Menu Screen -->
@@ -21,7 +23,7 @@
                     <span class="pong">PONG</span>
                 </h1>
                 <p class="subtitle">Classic 2D Game</p>
-                
+
                 <div class="difficulty-section">
                     <h2>Pilih Level</h2>
                     <div class="difficulty-buttons">
@@ -39,17 +41,30 @@
                         </button>
                     </div>
                 </div>
-                
+
+                <div class="speed-section">
+                    <h2>Kecepatan Bola</h2>
+                    <div class="speed-control">
+                        <span class="speed-icon">🐢</span>
+                        <input type="range" id="ball-speed" min="2" max="12" value="0" step="1">
+                        <span class="speed-icon">🐇</span>
+                    </div>
+                    <div class="speed-display">
+                        <span id="speed-value">Auto</span>
+                        <button id="reset-speed" class="reset-btn">↻ Auto</button>
+                    </div>
+                </div>
+
                 <button id="start-btn" class="primary-btn">
                     <span>🎮</span> Mulai Main
                 </button>
-                
+
                 <div class="instructions">
                     <p>👆 Geser layar untuk menggerakkan paddle</p>
                 </div>
             </div>
         </div>
-        
+
         <!-- Game Screen -->
         <div id="game-screen" class="screen">
             <div class="game-header">
@@ -66,14 +81,14 @@
                 </div>
                 <button id="pause-btn" class="icon-btn">⏸️</button>
             </div>
-            
+
             <canvas id="game-canvas"></canvas>
-            
+
             <div class="touch-hint">
                 <p>👆 Geser di area ini untuk menggerakkan paddle</p>
             </div>
         </div>
-        
+
         <!-- Pause Screen -->
         <div id="pause-screen" class="screen overlay">
             <div class="modal">
@@ -84,7 +99,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Game Over Screen -->
         <div id="gameover-screen" class="screen overlay">
             <div class="modal">
@@ -99,7 +114,8 @@
             </div>
         </div>
     </div>
-    
+
     <script src="game.js"></script>
 </body>
+
 </html>

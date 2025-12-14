@@ -24,6 +24,7 @@ const DIFFICULTY_SETTINGS = {
 const game = {
     state: 'menu', // menu, playing, paused, gameover
     difficulty: 'easy',
+    customBallSpeed: null, // null = auto (based on difficulty)
     playerScore: 0,
     aiScore: 0,
     lastAiUpdate: 0,
@@ -74,6 +75,9 @@ const elements = {
     playagainBtn: null,
     menuBtn: null,
     diffBtns: null,
+    ballSpeedSlider: null,
+    speedValueEl: null,
+    resetSpeedBtn: null,
     playerScoreEl: null,
     aiScoreEl: null,
     resultText: null,
@@ -95,6 +99,9 @@ function init() {
     elements.playagainBtn = document.getElementById('playagain-btn');
     elements.menuBtn = document.getElementById('menu-btn');
     elements.diffBtns = document.querySelectorAll('.diff-btn');
+    elements.ballSpeedSlider = document.getElementById('ball-speed');
+    elements.speedValueEl = document.getElementById('speed-value');
+    elements.resetSpeedBtn = document.getElementById('reset-speed');
     elements.playerScoreEl = document.getElementById('player-score');
     elements.aiScoreEl = document.getElementById('ai-score');
     elements.resultText = document.getElementById('result-text');
@@ -119,8 +126,21 @@ function setupEventListeners() {
             elements.diffBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             game.difficulty = btn.dataset.difficulty;
+            // Update speed display if in auto mode
+            if (game.customBallSpeed === null) {
+                updateSpeedDisplay();
+            }
         });
     });
+
+    // Ball speed slider
+    elements.ballSpeedSlider.addEventListener('input', handleSpeedChange);
+
+    // Reset speed button
+    elements.resetSpeedBtn.addEventListener('click', resetSpeed);
+
+    // Initialize speed display
+    updateSpeedDisplay();
 
     // Start button
     elements.startBtn.addEventListener('click', startGame);
@@ -276,7 +296,9 @@ function resetBall() {
 
     ball.x = canvasWidth / 2;
     ball.y = canvasHeight / 2;
-    ball.speed = settings.ballSpeed;
+
+    // Use custom speed if set, otherwise use difficulty default
+    ball.speed = game.customBallSpeed !== null ? game.customBallSpeed : settings.ballSpeed;
 
     // Random direction
     const angle = (Math.random() * 0.5 + 0.25) * Math.PI; // 45-135 degrees
@@ -389,7 +411,8 @@ function updateBall() {
         ball.y = player.y - paddle.height / 2 - ball.radius;
 
         // Slightly increase speed
-        ball.speed = Math.min(ball.speed * 1.02, DIFFICULTY_SETTINGS[game.difficulty].ballSpeed * 1.5);
+        const baseSpeed = game.customBallSpeed !== null ? game.customBallSpeed : DIFFICULTY_SETTINGS[game.difficulty].ballSpeed;
+        ball.speed = Math.min(ball.speed * 1.02, baseSpeed * 1.5);
     }
 
     // Paddle collision - AI
@@ -522,6 +545,31 @@ function gameLoop() {
     draw();
 
     game.animationId = requestAnimationFrame(gameLoop);
+}
+
+// ===== Speed Control =====
+function handleSpeedChange(e) {
+    const value = parseInt(e.target.value);
+    game.customBallSpeed = value;
+    updateSpeedDisplay();
+}
+
+function resetSpeed() {
+    game.customBallSpeed = null;
+    updateSpeedDisplay();
+}
+
+function updateSpeedDisplay() {
+    if (game.customBallSpeed !== null) {
+        elements.speedValueEl.textContent = game.customBallSpeed;
+        elements.ballSpeedSlider.value = game.customBallSpeed;
+        elements.resetSpeedBtn.style.display = 'inline-block';
+    } else {
+        const autoSpeed = DIFFICULTY_SETTINGS[game.difficulty].ballSpeed;
+        elements.speedValueEl.textContent = `Auto (${autoSpeed})`;
+        elements.ballSpeedSlider.value = autoSpeed;
+        elements.resetSpeedBtn.style.display = 'none';
+    }
 }
 
 // ===== Start =====
