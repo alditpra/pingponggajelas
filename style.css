@@ -1,0 +1,410 @@
+/* ===== CSS Variables ===== */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a35;
+    --bg-card: rgba(30, 30, 60, 0.8);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0c0;
+    --accent-cyan: #00d4ff;
+    --accent-magenta: #ff00aa;
+    --accent-green: #00ff88;
+    --accent-yellow: #ffcc00;
+    --accent-red: #ff4466;
+    --gradient-primary: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+    --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.3);
+    --border-radius: 16px;
+    --transition: all 0.3s ease;
+}
+
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-primary);
+    background-image: 
+        radial-gradient(ellipse at top, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, rgba(255, 0, 170, 0.1) 0%, transparent 50%);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== Container ===== */
+.container {
+    width: 100%;
+    height: 100%;
+    max-width: 480px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===== Screen States ===== */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.screen.overlay {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* ===== Menu Screen ===== */
+.menu-content {
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 24px;
+}
+
+.game-title {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+.game-title .ping {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 20px var(--accent-cyan);
+}
+
+.game-title .pong {
+    color: var(--accent-magenta);
+    text-shadow: 0 0 20px var(--accent-magenta);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-top: -16px;
+}
+
+/* ===== Difficulty Section ===== */
+.difficulty-section {
+    width: 100%;
+    text-align: center;
+    margin: 16px 0;
+}
+
+.difficulty-section h2 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    font-weight: 400;
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.diff-btn {
+    flex: 1;
+    max-width: 100px;
+    padding: 16px 12px;
+    background: var(--bg-card);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.diff-btn:hover, .diff-btn:active {
+    transform: translateY(-2px);
+    background: rgba(30, 30, 60, 1);
+}
+
+.diff-btn.active {
+    border-color: var(--accent-cyan);
+    box-shadow: var(--shadow-glow);
+}
+
+.diff-btn[data-difficulty="easy"].active {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.diff-btn[data-difficulty="medium"].active {
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+}
+
+.diff-btn[data-difficulty="hard"].active {
+    border-color: var(--accent-red);
+    box-shadow: 0 0 20px rgba(255, 68, 102, 0.3);
+}
+
+.diff-icon {
+    font-size: 1.5rem;
+}
+
+.diff-label {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ===== Buttons ===== */
+.primary-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 18px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--bg-primary);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: var(--shadow-glow);
+}
+
+.primary-btn:hover, .primary-btn:active {
+    transform: scale(1.02);
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+}
+
+.secondary-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 16px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border: 2px solid var(--text-secondary);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.secondary-btn:hover, .secondary-btn:active {
+    background: rgba(50, 50, 80, 0.8);
+    border-color: var(--text-primary);
+}
+
+.icon-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    background: var(--bg-card);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* ===== Instructions ===== */
+.instructions {
+    margin-top: 16px;
+    padding: 16px 24px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.instructions p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ===== Game Screen ===== */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--bg-secondary);
+}
+
+.score-display {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+.score-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.ai-score .score-value {
+    color: var(--accent-magenta);
+}
+
+.player-score .score-value {
+    color: var(--accent-cyan);
+}
+
+.score-divider {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+}
+
+#game-canvas {
+    flex: 1;
+    width: 100%;
+    display: block;
+    touch-action: none;
+}
+
+.touch-hint {
+    padding: 12px;
+    background: var(--bg-secondary);
+    text-align: center;
+}
+
+.touch-hint p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* ===== Modal ===== */
+.modal {
+    background: var(--bg-card);
+    padding: 40px 32px;
+    border-radius: 24px;
+    text-align: center;
+    max-width: 320px;
+    width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.final-score {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== Animations ===== */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.game-title {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ===== Responsive ===== */
+@media (max-height: 600px) {
+    .menu-content {
+        padding: 20px 16px;
+        gap: 16px;
+    }
+    
+    .game-title {
+        font-size: 2.5rem;
+    }
+    
+    .difficulty-section {
+        margin: 8px 0;
+    }
+    
+    .diff-btn {
+        padding: 12px 8px;
+    }
+    
+    .primary-btn {
+        padding: 14px 24px;
+    }
+    
+    .instructions {
+        margin-top: 8px;
+        padding: 12px 16px;
+    }
+}
+
+@media (min-width: 481px) {
+    .container {
+        border-radius: 24px;
+        max-height: 800px;
+        box-shadow: 
+            0 0 60px rgba(0, 212, 255, 0.2),
+            0 0 100px rgba(255, 0, 170, 0.1);
+        overflow: hidden;
+    }
+}

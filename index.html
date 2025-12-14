@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Game Ping Pong 2D sederhana dengan HTML5 Canvas">
+    <meta name="theme-color" content="#0f0f23">
+    <title>Ping Pong Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Menu Screen -->
+        <div id="menu-screen" class="screen active">
+            <div class="menu-content">
+                <h1 class="game-title">
+                    <span class="ping">PING</span>
+                    <span class="pong">PONG</span>
+                </h1>
+                <p class="subtitle">Classic 2D Game</p>
+                
+                <div class="difficulty-section">
+                    <h2>Pilih Level</h2>
+                    <div class="difficulty-buttons">
+                        <button class="diff-btn active" data-difficulty="easy">
+                            <span class="diff-icon">🟢</span>
+                            <span class="diff-label">Easy</span>
+                        </button>
+                        <button class="diff-btn" data-difficulty="medium">
+                            <span class="diff-icon">🟡</span>
+                            <span class="diff-label">Medium</span>
+                        </button>
+                        <button class="diff-btn" data-difficulty="hard">
+                            <span class="diff-icon">🔴</span>
+                            <span class="diff-label">Hard</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <button id="start-btn" class="primary-btn">
+                    <span>🎮</span> Mulai Main
+                </button>
+                
+                <div class="instructions">
+                    <p>👆 Geser layar untuk menggerakkan paddle</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="score-display">
+                    <div class="score ai-score">
+                        <span class="score-label">AI</span>
+                        <span id="ai-score" class="score-value">0</span>
+                    </div>
+                    <div class="score-divider">:</div>
+                    <div class="score player-score">
+                        <span class="score-label">KAMU</span>
+                        <span id="player-score" class="score-value">0</span>
+                    </div>
+                </div>
+                <button id="pause-btn" class="icon-btn">⏸️</button>
+            </div>
+            
+            <canvas id="game-canvas"></canvas>
+            
+            <div class="touch-hint">
+                <p>👆 Geser di area ini untuk menggerakkan paddle</p>
+            </div>
+        </div>
+        
+        <!-- Pause Screen -->
+        <div id="pause-screen" class="screen overlay">
+            <div class="modal">
+                <h2>⏸️ Game Dijeda</h2>
+                <div class="modal-buttons">
+                    <button id="resume-btn" class="primary-btn">▶️ Lanjut</button>
+                    <button id="quit-btn" class="secondary-btn">🏠 Menu</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div id="gameover-screen" class="screen overlay">
+            <div class="modal">
+                <h2 id="result-text">🎉 Kamu Menang!</h2>
+                <div class="final-score">
+                    <span id="final-player">0</span> - <span id="final-ai">0</span>
+                </div>
+                <div class="modal-buttons">
+                    <button id="playagain-btn" class="primary-btn">🔄 Main Lagi</button>
+                    <button id="menu-btn" class="secondary-btn">🏠 Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
